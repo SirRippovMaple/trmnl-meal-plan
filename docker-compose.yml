@@ -1,0 +1,9 @@
+services:
+  trmnl-mealplan:
+    build: .
+    env_file: .env
+    volumes:
+      - ~/notes/keto:/mealplans:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
