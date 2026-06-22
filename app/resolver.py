@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from .config import Settings
-from .meal_parser import find_current_file, parse_meal_plan, sum_macros
+from .json_meal_parser import find_current_file, parse_meal_plan, sum_macros
 
 
 def infer_meal_type(now: datetime, s: Settings) -> str:
@@ -35,7 +35,7 @@ def resolve(meal_type: str | None, settings: Settings) -> dict:
         return _error(resolved_type, day_name, now, "No meal plan file found for this week.")
 
     try:
-        week_dt = datetime.strptime(meal_file.stem.replace("meal-plan-", ""), "%Y-%m-%d")
+        week_dt = datetime.strptime(meal_file.stem.replace("Meal Plan ", ""), "%Y-%m-%d")
         week_label = week_dt.strftime("%B %-d, %Y")
     except ValueError:
         week_label = meal_file.stem
